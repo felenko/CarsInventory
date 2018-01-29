@@ -1,7 +1,28 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
+import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
 export class Home extends React.Component<RouteComponentProps<{}>, {}> {
+
+
+    products = [{ id: "1", name: "Ford", price: 32 },
+                { id: "2", name: "Chaevy", price: 32 }];
+
+     columns = [{
+        dataField: 'id',
+        text: 'Product ID'
+    }, {
+        dataField: 'name',
+        text: 'Product Name',
+        sort: true
+    }, {
+        dataField: 'price',
+        text: 'Product Price'
+    }];
+
+    
+
     public render() {
         return <div>
             <h1>Hello, world!</h1>
@@ -24,6 +45,48 @@ export class Home extends React.Component<RouteComponentProps<{}>, {}> {
                 For larger applications, or for server-side prerendering (i.e., for <em>isomorphic</em> or <em>universal</em> applications), you should consider using a Flux/Redux-like architecture.
                 You can generate an ASP.NET Core application with React and Redux using <code>dotnet new reactredux</code> instead of using this template.
             </p>
+            <div>
+                <table className="table table-hover">
+            <thead>
+                   <tr >
+                       <th data-defaultsign="_19"> Employee ID</th>
+                       <th data-defaultsign="AZ">Name</th>
+                       <th data-defaultsign="AZ">Title</th>
+                       <th data-defaultsign="month">Birth Date</th>
+                       <th data-firstsort="desc">Address</th>
+                       <th data-defaultsign="AZ">City</th>
+                       <th data-defaultsort="disabled">Country</th>
+                   </tr>
+                   </thead>
+                  <tbody>
+                <tr>
+                    <td>EmployeeID0</td>
+                    <td>Name</td>
+                    <td>Title</td>
+                    <td>BirthDate</td>
+                    <td>Address</td>
+                    <td>City</td>
+                    <td>Country</td>
+                </tr>
+                    <tr>
+                        <td>EmployeeID1</td>
+                        <td>Name</td>
+                        <td>Title</td>
+                        <td>BirthDate</td>
+                        <td>Address</td>
+                        <td>City</td>
+                        <td>Country</td>
+                    </tr>
+                  </tbody>
+                    </table>
+            </div>
+            <BootstrapTable data={this.products} striped hover>
+                       <TableHeaderColumn isKey dataField='id' dataSort={ true }>Product ID</TableHeaderColumn>
+                       <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
+                       <TableHeaderColumn dataField='price'>Product Price</TableHeaderColumn>
+                   </BootstrapTable>
+           
         </div>;
     }
 }
+ 

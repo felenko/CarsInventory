@@ -30,5 +30,10 @@
     "url-loader": "0.5.9",
     "webpack": "2.5.1",
     "webpack-hot-middleware": "2.18.2"
+  },
+  "dependencies": {
+    "@types/react-bootstrap-table": "^4.3.0",
+    "react-bootstrap-table": "^4.3.1",
+    "react-bootstrap-table-next": "^0.1.1"
   }
 }
