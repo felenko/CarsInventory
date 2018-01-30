@@ -9,21 +9,15 @@ export class Home extends React.Component<RouteComponentProps<{}>, {}> {
     products = [{ id: "1", name: "Ford", price: 32 },
                 { id: "2", name: "Chaevy", price: 32 }];
 
-     columns = [{
-        dataField: 'id',
-        text: 'Product ID'
-    }, {
-        dataField: 'name',
-        text: 'Product Name',
-        sort: true
-    }, {
-        dataField: 'price',
-        text: 'Product Price'
-    }];
+    buttonsColumnFormat(cell:any, row:any) {
+        return <span><button type="submit">Edit</button>
+            <button className="btn btn-warning react-bs-table-del-btn" type="submit">
+                <span><i className="fa glyphicon glyphicon-trash fa-trash"></i>Delete</span></button>
+               </span>;
 
-    
+    }
 
-    public render() {
+   public render() {
         return <div>
             <h1>Hello, world!</h1>
             <p>Welcome to your new single-page application, built with:</p>
@@ -80,10 +74,11 @@ export class Home extends React.Component<RouteComponentProps<{}>, {}> {
                   </tbody>
                     </table>
             </div>
-            <BootstrapTable data={this.products} striped hover>
+            <BootstrapTable data={this.products} striped hover deleteRow insertRow>
                        <TableHeaderColumn isKey dataField='id' dataSort={ true }>Product ID</TableHeaderColumn>
                        <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
-                       <TableHeaderColumn dataField='price'>Product Price</TableHeaderColumn>
+                       <TableHeaderColumn dataField='price' dataFormat={this.buttonsColumnFormat}>Product Price</TableHeaderColumn>
+
                    </BootstrapTable>
            
         </div>;
