@@ -46,13 +46,13 @@ namespace CarsRepository.Controllers
                         cars.RemoveAt(removedCarsWithIndexes[i].index);
                     }
 
-                    var changedCarsWithIndexes = newCars.Select((car, index) => new { car, index }).Where(c => CarInList(newCars, c.car));
+                    var changedCarsWithIndexes = newCars.Select((car, index) => new { car, index }).Where(c => CarInList(cars, c.car));
                     foreach (var changedCarsWithIndex in changedCarsWithIndexes)
                     {
                         cars[changedCarsWithIndex.index] = changedCarsWithIndex.car;
                     }
 
-                    var addedCars = newCars.Select((car, index) => new { car, index }).Where(c => CarInList(cars, c.car));
+                    var addedCars = newCars.Select((car, index) => new { car, index }).Where(c => !CarInList(cars, c.car));
                     foreach (var addedCarIndex in addedCars)
                     {
                         cars.Add(addedCarIndex.car);
@@ -69,24 +69,24 @@ namespace CarsRepository.Controllers
         }
 
         [HttpPost]
-        public void UpSertCar([FromBody] Car car)
+        public void UpSertCar([FromBody] Car newCar)
         {
             try
             {
                 _log.Info("Insert car request reseived");
-                if (car == null) throw new ArgumentException("car can't be null");
+                if (newCar == null) throw new ArgumentException("car can't be null");
                 lock (_lockObject)
                 {
                     var cars = _provider.Load().ToList();
-                    var result = cars.Select((c, index) => new {car, index}).FirstOrDefault(c => c.car.Id == car.Id);
+                    var result = cars.Select((car, index) => new {car, index}).FirstOrDefault(c => c.car.Id == newCar.Id);
                     if (result == null)
                     {
-                        cars.Add(car);
+                        cars.Add(newCar);
                         _log.Info("The was no such entry in repository. New car added.");
                     }
                     else
                     {
-                        cars[result.index] = car;
+                        cars[result.index] = newCar;
                         _log.Info("Car entry updated.");
                     }
 
