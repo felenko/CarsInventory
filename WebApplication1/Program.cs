@@ -9,7 +9,7 @@ namespace CarsRepository
 {
     public class Program
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(Program));
+        private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(Program));
         public static void Main(string[] args)
         {
             XmlDocument log4netConfig = new XmlDocument();
@@ -17,7 +17,7 @@ namespace CarsRepository
             var repo = log4net.LogManager.CreateRepository(Assembly.GetEntryAssembly(), typeof(log4net.Repository.Hierarchy.Hierarchy));
             log4net.Config.XmlConfigurator.Configure(repo, log4netConfig["log4net"]);
 
-            log.Info("Car Inventory Service starting..");
+            _log.Info("Car Inventory Service starting..");
             BuildWebHost(args).Run();
 
             
