@@ -20,25 +20,35 @@ namespace CarsInventory.Controllers
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
-                DateFormatted = DateTime.Now.AddDays(index).ToString("d"),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
+                dateFormatted = DateTime.Now.AddDays(index).ToString("d"),
+                temperatureC = rng.Next(-20, 55),
+                summary = Summaries[rng.Next(Summaries.Length)]
             });
+        }
+        [HttpPost("[action]")]
+        public void SaveWeatherForecasts([FromBody]WeatherForecast[] forecast)
+        {
+            Console.WriteLine(forecast);
         }
 
         public class WeatherForecast
         {
-            public string DateFormatted { get; set; }
-            public int TemperatureC { get; set; }
-            public string Summary { get; set; }
+            public string dateFormatted { get; set; }
+            public int temperatureC { get; set; }
+            public string summary { get; set; }
 
-            public int TemperatureF
+            public int temperatureF
             {
                 get
                 {
-                    return 32 + (int)(TemperatureC / 0.5556);
+                    return 32 + (int)(temperatureC / 0.5556);
                 }
-            }
+                          }
         }
+    }
+
+    public class MyType
+    {
+        public string A { get; set; }
     }
 }

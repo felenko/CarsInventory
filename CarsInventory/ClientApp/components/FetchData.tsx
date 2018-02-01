@@ -19,14 +19,41 @@ export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDat
             });
     }
 
+    public static postStateToServer(state:WeatherForecast[]) {
+        console.log(state);
+        console.log(state.length);
+        var test = [{ A: "test" },
+            { A: "test1" },
+            { A: "test2" }
+            ];
+        var data = new FormData();
+        data.append( "json", JSON.stringify( state ) );
+        fetch('api/SampleData/SaveWeatherForecasts',
+                {
+                    method: 'post',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                    body:JSON.stringify( state )
+                })
+
+            .then(response => response.json() as Promise<WeatherForecast[]>)
+            .then(data => {
+                console.log("successfull post");
+            });
+        
+    }
+
     public render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
             : FetchData.renderForecastsTable(this.state.forecasts);
-
+        let forecasts = this.state.forecasts;
         return <div>
             <h1>Weather forecast</h1>
             <p>This component demonstrates fetching data from the server.</p>
+               <button onClick={()=> {FetchData.postStateToServer(forecasts)}}> Post</button>
             { contents }
         </div>;
     }
@@ -52,6 +79,8 @@ export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDat
             )}
             </tbody>
         </table>;
+    
+
     }
 }
 
