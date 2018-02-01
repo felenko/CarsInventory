@@ -1,12 +1,20 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using WebApplication1;
 
 namespace CarsRepository.Controllers
 {
     [Route("api/[controller]/[action]")]
     public class ValuesController : Controller
     {
+        private IPersistenceProvider _repository;
+
+        public ValuesController(IPersistenceProvider provider)
+        {
+            _repository = provider;
+        }
+
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()

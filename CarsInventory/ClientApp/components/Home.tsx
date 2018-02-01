@@ -96,7 +96,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
 
     buttonsColumnFormat(cell:any, row:any) {
        
-        return <span><button type="submit">Edit</button>
+        return <span><button className="btn btn-default" type="submit"><span className="glyphicon glyphicon-pencil"></span>Edit</button>
             
             <button className="btn btn-warning react-bs-table-del-btn" type="submit" onClick={() => { this.deleteBtnClick(row); }}>
             <span><i className="fa glyphicon glyphicon-trash fa-trash"  ></i>Delete</span></button>
@@ -127,7 +127,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
                        isOpen= {this.state.isShowingModal}
                        closeTimeoutMS={150}
                        contentLabel="modalB"
-                       shouldCloseOnOverlayClick={true}>
+                       shouldCloseOnOverlayClick={false}>
                        <form>
                        <fieldset>
                            <input type="text"  />
@@ -165,5 +165,9 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
             
            
         </div>;
+    }
+
+    componentDidUpdate(prevProps:any, prevState:any) {
+        console.log("updated");
     }
 }
