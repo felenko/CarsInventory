@@ -3,7 +3,6 @@ using System.Reflection;
 using System.Xml;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using WebApplication1;
 
 namespace CarsRepository
 {

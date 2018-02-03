@@ -1,0 +1,23 @@
+[
+  {
+    Id: 1,
+    Manufacturer: "Ford",
+    Make: "Ford",
+    Model: "GT",
+    Year: 2015
+  },
+  {
+    "Id": 2,
+    "Manufacturer": "Chevy",
+    "Make": "Camaro",
+    "Model": "RT",
+    "Year": 2016
+  },
+  {
+    Id: 3,
+    Manufacturer: "Dodge",
+    Make: "Durango",
+    Model: "SRT",
+    Year: 2017
+  }
+]

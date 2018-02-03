@@ -7,6 +7,13 @@ const bundleOutputDir = './wwwroot/dist';
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
     return [{
+        externals: {
+            'Config': JSON.stringify(process.env.ENV === 'production' ? {
+                serverUrl: "https://myserver.com"
+            } : {
+                serverUrl: "http://localhost:8090"
+            })
+        },
         stats: { modules: false },
         entry: { 'main': './ClientApp/boot.tsx' },
         resolve: { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
@@ -33,6 +40,9 @@ module.exports = (env) => {
             new webpack.SourceMapDevToolPlugin({
                 filename: '[file].map', // Remove this line if you prefer inline source maps
                 moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]') // Point sourcemap entries to the original file locations on disk
+            }),
+            new webpack.DefinePlugin({
+                __APIurl__: "http://localhost:5000/"
             })
         ] : [
             // Plugins that apply in production builds only

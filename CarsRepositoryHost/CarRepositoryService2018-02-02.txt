@@ -1,0 +1,154 @@
+2018-02-02 14:06:13,073 [1] INFO  App  
+ Car Inventory Service starting.. 
+ 
+2018-02-02 14:11:19,360 [6] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 14:11:19,439 [6] ERROR App  
+ Error: 
+ 
+System.ArgumentException: newCars can't be null
+   at CarsRepository.Controllers.CarRepositoryController.UpdateAllCars(Car[] newCars) in C:\Users\Kostiantyn\documents\visual studio 2017\Projects\CarsInventory\WebApplication1\Controllers\CarRepositoryController.cs:line 41
+2018-02-02 14:11:41,611 [6] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 14:14:31,832 [1] INFO  App  
+ Car Inventory Service starting.. 
+ 
+2018-02-02 14:15:04,671 [6] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 14:15:04,762 [6] ERROR App  
+ Error: 
+ 
+System.ArgumentException: newCars can't be null
+   at CarsRepository.Controllers.CarRepositoryController.UpdateAllCars(Car[] newCars) in C:\Users\Kostiantyn\documents\visual studio 2017\Projects\CarsInventory\WebApplication1\Controllers\CarRepositoryController.cs:line 41
+2018-02-02 14:15:48,148 [6] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 14:15:48,207 [6] ERROR App  
+ Error: 
+ 
+System.ArgumentException: newCars can't be null
+   at CarsRepository.Controllers.CarRepositoryController.UpdateAllCars(Car[] newCars) in C:\Users\Kostiantyn\documents\visual studio 2017\Projects\CarsInventory\WebApplication1\Controllers\CarRepositoryController.cs:line 41
+2018-02-02 14:20:21,771 [7] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 14:23:27,533 [7] ERROR App  
+ Error: 
+ 
+System.IO.FileNotFoundException: Could not find file 'C:\Users\Kostiantyn\documents\visual studio 2017\Projects\CarsInventory\CarsRepositoryHost\Repository.json'.
+File name: 'C:\Users\Kostiantyn\documents\visual studio 2017\Projects\CarsInventory\CarsRepositoryHost\Repository.json'
+   at System.IO.FileStream.OpenHandle(FileMode mode, FileShare share, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize)
+   at System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks)
+   at System.IO.File.InternalReadAllText(String path, Encoding encoding)
+   at System.IO.File.ReadAllText(String path)
+   at CarsRepository.FileSystemPersistenceProvider.Load() in C:\Users\Kostiantyn\documents\visual studio 2017\Projects\CarsInventory\WebApplication1\FileSystemPersistenceProvider.cs:line 20
+   at CarsRepository.Controllers.CarRepositoryController.UpdateAllCars(Car[] newCars) in C:\Users\Kostiantyn\documents\visual studio 2017\Projects\CarsInventory\WebApplication1\Controllers\CarRepositoryController.cs:line 43
+2018-02-02 14:24:40,397 [6] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 14:24:40,471 [6] ERROR App  
+ Error: 
+ 
+System.ArgumentException: newCars can't be null
+   at CarsRepository.Controllers.CarRepositoryController.UpdateAllCars(Car[] newCars) in C:\Users\Kostiantyn\documents\visual studio 2017\Projects\CarsInventory\WebApplication1\Controllers\CarRepositoryController.cs:line 41
+2018-02-02 14:25:56,677 [6] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 14:26:39,282 [6] ERROR App  
+ Error: 
+ 
+Newtonsoft.Json.JsonReaderException: Error parsing undefined value. Path '', line 1, position 1.
+   at Newtonsoft.Json.JsonTextReader.ParseUndefined()
+   at Newtonsoft.Json.JsonTextReader.ParseValue()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at CarsRepository.FileSystemPersistenceProvider.Load() in C:\Users\Kostiantyn\documents\visual studio 2017\Projects\CarsInventory\WebApplication1\FileSystemPersistenceProvider.cs:line 21
+   at CarsRepository.Controllers.CarRepositoryController.UpdateAllCars(Car[] newCars) in C:\Users\Kostiantyn\documents\visual studio 2017\Projects\CarsInventory\WebApplication1\Controllers\CarRepositoryController.cs:line 43
+2018-02-02 14:27:04,057 [7] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 14:28:51,065 [4] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 14:28:51,131 [4] ERROR App  
+ Error: 
+ 
+System.ArgumentException: newCars can't be null
+   at CarsRepository.Controllers.CarRepositoryController.UpdateAllCars(Car[] newCars) in C:\Users\Kostiantyn\documents\visual studio 2017\Projects\CarsInventory\WebApplication1\Controllers\CarRepositoryController.cs:line 41
+2018-02-02 14:29:11,756 [4] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 14:29:11,805 [4] ERROR App  
+ Error: 
+ 
+System.ArgumentException: newCars can't be null
+   at CarsRepository.Controllers.CarRepositoryController.UpdateAllCars(Car[] newCars) in C:\Users\Kostiantyn\documents\visual studio 2017\Projects\CarsInventory\WebApplication1\Controllers\CarRepositoryController.cs:line 41
+2018-02-02 14:30:34,277 [7] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 15:23:39,070 [1] INFO  App  
+ Car Inventory Service starting.. 
+ 
+2018-02-02 15:29:04,477 [1] INFO  App  
+ Car Inventory Service starting.. 
+ 
+2018-02-02 15:31:41,521 [1] INFO  App  
+ Car Inventory Service starting.. 
+ 
+2018-02-02 15:36:01,591 [1] INFO  App  
+ Car Inventory Service starting.. 
+ 
+2018-02-02 15:37:44,789 [6] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 15:37:44,953 [6] ERROR App  
+ Error: 
+ 
+System.ArgumentException: newCars can't be null
+   at CarsRepository.Controllers.CarRepositoryController.UpdateAllCars(Car[] newCars) in C:\Users\Kostiantyn\documents\visual studio 2017\Projects\CarsInventory\WebApplication1\Controllers\CarRepositoryController.cs:line 41
+2018-02-02 15:37:47,974 [4] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 15:37:55,029 [18] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 15:37:56,469 [4] ERROR App  
+ Error: 
+ 
+System.ArgumentException: newCars can't be null
+   at CarsRepository.Controllers.CarRepositoryController.UpdateAllCars(Car[] newCars) in C:\Users\Kostiantyn\documents\visual studio 2017\Projects\CarsInventory\WebApplication1\Controllers\CarRepositoryController.cs:line 41
+2018-02-02 15:39:27,466 [6] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 15:39:27,563 [6] ERROR App  
+ Error: 
+ 
+System.ArgumentException: newCars can't be null
+   at CarsRepository.Controllers.CarRepositoryController.UpdateAllCars(Car[] newCars) in C:\Users\Kostiantyn\documents\visual studio 2017\Projects\CarsInventory\WebApplication1\Controllers\CarRepositoryController.cs:line 41
+2018-02-02 16:08:26,477 [1] INFO  App  
+ Car Inventory Service starting.. 
+ 
+2018-02-02 19:00:39,070 [1] INFO  App  
+ Car Inventory Service starting.. 
+ 
+2018-02-02 19:05:29,811 [1] INFO  App  
+ Car Inventory Service starting.. 
+ 
+2018-02-02 19:10:46,027 [6] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 19:10:46,156 [6] ERROR App  
+ Error: 
+ 
+System.ArgumentException: newCars can't be null
+   at CarsRepository.Controllers.CarRepositoryController.UpdateAllCars(Car[] newCars) in C:\Users\Kostiantyn\documents\visual studio 2017\Projects\CarsInventory\WebApplication1\Controllers\CarRepositoryController.cs:line 41
+2018-02-02 19:21:08,635 [1] INFO  App  
+ Car Inventory Service starting.. 
+ 

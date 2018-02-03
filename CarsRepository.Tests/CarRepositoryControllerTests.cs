@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
-using WebApplication1;
 using Xunit;
 using Assert = Xunit.Assert;
 
@@ -71,7 +70,7 @@ namespace CarsRepository.Tests
             };
             providerMock.Setup(p => p.Load()).Returns(_fakeCarslist);
             providerMock.Setup(p => p.Save(It.IsAny<Car[]>())).Callback<Car[]>(c => actual = c);
-            carsRepositoryController.UpdateAllCars(updatedCars);
+           // carsRepositoryController.UpdateAllCars(updatedCars);
 
             Assert.Equal(3, actual.Length);
             Assert.True(actual[0].EqualToCar(_fakeCarslist[0]));
@@ -109,6 +108,7 @@ namespace CarsRepository.Tests
             Assert.True(actual[2].EqualToCar(_fakeCarslist[2]));
             Assert.True(actual[3].EqualToCar(newCar));
         }
+
     }
 
     static class CarUtils

@@ -1,12 +1,9 @@
 ﻿using System.IO;
-using System.Runtime.CompilerServices;
-using CarsRepository;
 using CarsRepository.Controllers;
-using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
-namespace WebApplication1
+namespace CarsRepository
 {
     public class FileSystemPersistenceProvider:IPersistenceProvider
     {
@@ -19,14 +16,15 @@ namespace WebApplication1
 
         public Car[] Load()
         {
-            var filePath = _config["Repository:FilePath"];
-            var cars = JsonConvert.DeserializeObject<Car[]>(File.ReadAllText(filePath));
-            return cars;
+            var filePath = _config.GetValue<string>("Repository:FilePath");
+            string content = File.ReadAllText(filePath);
+            var cars = JsonConvert.DeserializeObject<Car[]>(content);
+            return (cars==null)? new Car[0] : cars;
         }
 
         public void Save(Car[] cars)
         {
-            var filePath = _config["Repository:FilePath"];
+            var filePath = _config.GetValue<string>("Repository:FilePath");
             var serialized = JsonConvert.SerializeObject(cars);
             File.WriteAllText(filePath, serialized);
         }

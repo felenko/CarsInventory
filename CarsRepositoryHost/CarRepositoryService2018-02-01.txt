@@ -1,9 +1,0 @@
-2018-02-01 11:37:51,134 [1] INFO  App  
- Car Inventory Service starting.. 
- 
-2018-02-01 11:55:48,661 [1] INFO  App  
- Car Inventory Service starting.. 
- 
-2018-02-01 12:00:17,758 [1] INFO  App  
- Car Inventory Service starting.. 
- 

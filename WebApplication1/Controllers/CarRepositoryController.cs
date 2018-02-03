@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using WebApplication1;
 
 namespace CarsRepository.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [EnableCors("SiteCorsPolicy")]
+    [Route("api/[controller]")]
     public class CarRepositoryController : Controller
     {
         private IPersistenceProvider _provider;
@@ -18,8 +17,9 @@ namespace CarsRepository.Controllers
         {
             _provider = provider;
         }
-
-        [HttpGet]
+        
+        [EnableCors("SiteCorsPolicy")]
+        [HttpGet("GetAllCars")]
         public IEnumerable<Car> GetAllCars()
         {
             return new[]
@@ -29,9 +29,10 @@ namespace CarsRepository.Controllers
                 new Car() {Id=3, Manufacturer = "Ford", Make = "Mustang", Model="GT", Year=2017},
             };
         }
-        
-        [HttpPost]
-        public void UpdateAllCars([FromBody]Car[] newCars)
+
+        [EnableCors("SiteCorsPolicy")]
+        [HttpPost("[action]")]
+        public bool UpdateAllCars([FromBody]Car[] newCars)
         {
             try
             {
@@ -60,6 +61,8 @@ namespace CarsRepository.Controllers
 
                     _provider.Save(cars.ToArray());
                 }
+
+                return true;
             }
             catch (Exception ex)
             {
@@ -78,7 +81,7 @@ namespace CarsRepository.Controllers
                 lock (_lockObject)
                 {
                     var cars = _provider.Load().ToList();
-                    var result = cars.Select((car, index) => new {car, index}).FirstOrDefault(c => c.car.Id == newCar.Id);
+                    var result = cars.Select((car, index) => new { car, index }).FirstOrDefault(c => c.car.Id == newCar.Id);
                     if (result == null)
                     {
                         cars.Add(newCar);
@@ -100,7 +103,6 @@ namespace CarsRepository.Controllers
             }
         }
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
         public void DeleteCar(int id)
         {
@@ -109,7 +111,7 @@ namespace CarsRepository.Controllers
             lock (_lockObject)
             {
                 var cars = _provider.Load().ToList();
-                var result = cars.Select((car, index) => new {car, index}).FirstOrDefault(c => c.car.Id == id);
+                var result = cars.Select((car, index) => new { car, index }).FirstOrDefault(c => c.car.Id == id);
                 if (result == null)
                 {
                     throw new Exception("Entry with index does not exist in repository");

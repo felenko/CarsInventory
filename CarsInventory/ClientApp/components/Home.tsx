@@ -2,9 +2,13 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import 'isomorphic-fetch';
 
 import * as Modal from 'react-modal';
 
+//import * as webpack from 'webpack';
+
+const serverBaseUrl = "http://localhost:5000/";
 
 
 function onAfterDeleteRow(rowKeys:any) {
@@ -13,12 +17,10 @@ function onAfterDeleteRow(rowKeys:any) {
 
 const options = {
     afterDeleteRow: onAfterDeleteRow  // A hook for after droping rows.
+     
 };
 
 // If you want to enable deleteRow, you must enable row selection also.
-const selectRowProp = {
-    mode: 'checkbox'
-};
 
 interface MyComponentState { activities : any[]}
 
@@ -72,58 +74,95 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
         super();
         this.deleteBtnClick = this.deleteBtnClick.bind(this);
         this.buttonsColumnFormat = this.buttonsColumnFormat.bind(this);
+        this.onAddRowHandler = this.onAddRowHandler.bind(this);
+        this.postStateToServer = this.postStateToServer.bind(this);
         this.state = { cars: [
-            { id: 1, name: "Ford", price: 32 },
-            { id: 2, name: "Chevy", price: 32 },
-            { id: 3, name: "Chevy", price: 32 }
+                { Id: 1, Manufacturer: "Ford", Make: "Ford", Model: "GT", Year: 2015},
+                { Id: 2, Manufacturer:"Chevy", Make: "Chevy", Model: "GT", Year: 2015 },
+                {  Id: 3, Manufacturer:"Chevy", Make: "Chevy",  Model: "GT", Year: 2015}
         ], isShowingModal: false
     }
     }
+    
+
+    clone<T>(o: T): T {
+        return JSON.parse(JSON.stringify(o));
+    }
+
 
     deleteBtnClick(row: any) {
         console.log("delete clicked");
         console.log(row.id);
+        console.log(row);
+        console.log("state cars count"+ this.state.cars.length);
+        
+
         var index = this.state.cars.indexOf(row);
-        this.state.cars.splice(index,1);
-        this.setState(this.state);
+        console.log("index"+ index);
+        var newState = this.clone(this.state);
+        newState.cars.splice(index,1);
+        this.setState(newState);
     }
 
     IsOpen: boolean;
 
-    products = [{ id: 1, name: "Ford", price: 32 },
-                { id: 2, name: "Chevy", price: 32 },
-                {  id: 3, name: "Chevy", price: 32 }];
+    products = [{ Id: 1, Manufacturer: "Ford", Make: "Ford", Model: "GT", Year: 2015},
+                { Id: 2, Manufacturer:"Chevy", Make: "Chevy", Model: "GT", Year: 2015 },
+                {  Id: 3, Manufacturer:"Chevy", Make: "Chevy",  Model: "GT", Year: 2015}];
 
     buttonsColumnFormat(cell:any, row:any) {
        
-        return <span><button className="btn btn-default" type="submit"><span className="glyphicon glyphicon-pencil"></span>Edit</button>
-            
-            <button className="btn btn-warning react-bs-table-del-btn" type="submit" onClick={() => { this.deleteBtnClick(row); }}>
-            <span><i className="fa glyphicon glyphicon-trash fa-trash"  ></i>Delete</span></button>
+        return <span><button className="btn btn-default" type="submit">
+                          <span className="glyphicon glyphicon-pencil"></span>Edit
+                     </button>
+                     <button className="btn btn-warning react-bs-table-del-btn" type="submit" onClick={() => { this.deleteBtnClick(row); }}>
+                          <span><i className="fa glyphicon glyphicon-trash fa-trash"></i>Delete</span>
+                     </button>
                </span>;
 
     }
 
-    
-    
-         
+
+    onAddRowHandler(row:any) {
+        console.log(row);
+        var car = {
+            Id: row.Id,
+            Manufacturer: row.Manufacturer,
+            Make: row.Make,
+            Model: row.Model,
+            Year: Number(row.Year)
+       }
+        var lastentry = this.state.cars[this.state.cars.length-1];
+        car.Id = Number(lastentry.Id) + 1;
+        var newState = this.clone(this.state);
+        newState.cars.push(car);
+        this.setState(newState);
+    }
+
+
     handleClick = () => this.setState({ cars:[], isShowingModal: true });
     handleClose = () => this.setState({ cars:[], isShowingModal: false });
     
    public render() {
+       const options = {
+           afterInsertRow:this.onAddRowHandler
+
+       };
+
+
         return <div>
-            <h1>Hello, world!</h1>
-<MainGrid1></MainGrid1>
-                    <button onClick={()=>this.deleteBtnClick({test:42})}> BTN</button>
-                   <BootstrapTable data={this.state.cars} striped hover deleteRow insertRow >
-                       <TableHeaderColumn isKey dataField='id' dataSort={ true }>Product ID</TableHeaderColumn>
-                       <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
-                       <TableHeaderColumn dataField='price' dataFormat={ this.buttonsColumnFormat.bind(this)}>Product Price</TableHeaderColumn>
+            
+                   <BootstrapTable  options={ options } data={this.state.cars}  striped hover insertRow >
+                       <TableHeaderColumn isKey dataField='Id' dataSort={ true }  editable={ { readOnly: true, defaultValue:"New Car" }} width='20%' hidden={true}></TableHeaderColumn>
+                       <TableHeaderColumn dataField='Manufacturer' dataSort={ true } width='20%'>Manufacturer</TableHeaderColumn>
+                       <TableHeaderColumn dataField='Make' dataSort={ true } width='20%'>Make</TableHeaderColumn>
+                       <TableHeaderColumn dataField='Model' dataSort={ true } width='20%'>Model</TableHeaderColumn>
+                       <TableHeaderColumn dataField='Year' dataSort={ true } width='10%'>Year</TableHeaderColumn>
+                       <TableHeaderColumn width='15%' dataFormat={ this.buttonsColumnFormat.bind(this)}>Product Price</TableHeaderColumn>
 
                    </BootstrapTable>
 
                    <Modal
-                       
                        isOpen= {this.state.isShowingModal}
                        closeTimeoutMS={150}
                        contentLabel="modalB"
@@ -136,30 +175,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
                         </form>
                    </Modal>
             <div>
-                <table className="table table-hover">
-            <thead>
-                   <tr >
-                       <th data-defaultsign="_19"> Employee ID</th>
-                       <th data-defaultsign="AZ">Name</th>
-                       <th data-defaultsign="AZ">Title</th>
-                       <th data-defaultsign="month">Birth Date</th>
-                       <th data-firstsort="desc">Address</th>
-                       <th data-defaultsign="AZ">City</th>
-                       <th data-defaultsort="disabled">Country</th>
-                   </tr>
-                   </thead>
-                  <tbody>
-                <tr>
-                    <td>EmployeeID0</td>
-                    <td>Name</td>
-                    <td>Title</td>
-                    <td>BirthDate</td>
-                    <td>Address</td>
-                    <td>City</td>
-                    <td>Country</td>
-                </tr>
-                </tbody>
-                    </table>
+               
             </div>
          
             
@@ -167,7 +183,31 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
         </div>;
     }
 
-    componentDidUpdate(prevProps:any, prevState:any) {
+    componentDidUpdate(prevProps: any, prevState: any) {
         console.log("updated");
+        
+       // var config: any = require('config'); 
+       // var url = config.get('serverUrl');
+        this.postStateToServer();
     }
+
+
+    postStateToServer() {
+        console.log(JSON.stringify( this.state.cars ));
+        fetch('http://localhost:5000/api/CarRepository/UpdateAllCars',
+                {
+                    method: 'post',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                    body:JSON.stringify( this.state.cars )
+                })
+
+            .then(response => response.json() as Promise<boolean>)
+            .then(data => {
+                console.log("successfull post");
+            });
+    }
+
 }
