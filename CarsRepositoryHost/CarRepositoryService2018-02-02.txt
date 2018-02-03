@@ -152,3 +152,24 @@ System.ArgumentException: newCars can't be null
 2018-02-02 19:21:08,635 [1] INFO  App  
  Car Inventory Service starting.. 
  
+2018-02-02 19:47:43,067 [1] INFO  App  
+ Car Inventory Service starting.. 
+ 
+2018-02-02 19:51:47,502 [19] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 19:54:22,382 [6] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 20:03:06,286 [1] INFO  App  
+ Car Inventory Service starting.. 
+ 
+2018-02-02 20:03:41,312 [1] INFO  App  
+ Car Inventory Service starting.. 
+ 
+2018-02-02 20:06:22,413 [13] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-02 20:07:17,294 [6] INFO  App  
+ Update cars repository request reseived 
+ 

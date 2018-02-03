@@ -29,6 +29,10 @@ interface CarsInventoryState {
     isShowingModal:boolean;
 }
 
+interface ICar {
+    
+}
+
 export class MainGrid extends React.Component<{}, MyComponentState> {
     constructor() {
         super();
@@ -77,11 +81,18 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
         this.onAddRowHandler = this.onAddRowHandler.bind(this);
         this.postStateToServer = this.postStateToServer.bind(this);
         this.state = { cars: [
-                { Id: 1, Manufacturer: "Ford", Make: "Ford", Model: "GT", Year: 2015},
-                { Id: 2, Manufacturer:"Chevy", Make: "Chevy", Model: "GT", Year: 2015 },
-                {  Id: 3, Manufacturer:"Chevy", Make: "Chevy",  Model: "GT", Year: 2015}
-        ], isShowingModal: false
-    }
+                              { Id: 1, Manufacturer: "Ford", Make: "Ford", Model: "GT", Year: 2015},
+                              { Id: 2, Manufacturer:"Chevy", Make: "Chevy", Model: "GT", Year: 2015 },
+                              {  Id: 3, Manufacturer:"Chevy", Make: "Chevy",  Model: "GT", Year: 2015}
+                             ], isShowingModal: false
+        }
+        fetch(serverBaseUrl+'api/CarRepository/GetAllCars')
+            .then(response => response.json() as Promise<ICar[]>)
+            .then(data => {
+                console.log("inital receied data");
+                console.log(data);
+                this.setState({ cars: data, isShowingModal: false });
+            });
     }
     
 
@@ -106,10 +117,6 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
 
     IsOpen: boolean;
 
-    products = [{ Id: 1, Manufacturer: "Ford", Make: "Ford", Model: "GT", Year: 2015},
-                { Id: 2, Manufacturer:"Chevy", Make: "Chevy", Model: "GT", Year: 2015 },
-                {  Id: 3, Manufacturer:"Chevy", Make: "Chevy",  Model: "GT", Year: 2015}];
-
     buttonsColumnFormat(cell:any, row:any) {
        
         return <span><button className="btn btn-default" type="submit">
@@ -121,8 +128,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
                </span>;
 
     }
-
-
+    
     onAddRowHandler(row:any) {
         console.log(row);
         var car = {

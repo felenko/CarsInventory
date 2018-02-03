@@ -22,12 +22,17 @@ namespace CarsRepository.Controllers
         [HttpGet("GetAllCars")]
         public IEnumerable<Car> GetAllCars()
         {
-            return new[]
+            try
             {
-                new Car() {Id=1, Manufacturer = "Ford", Make = "Mustang", Model="GT", Year=2015},
-                new Car() {Id=2, Manufacturer = "Ford", Make = "Mustang", Model="GT", Year=2016},
-                new Car() {Id=3, Manufacturer = "Ford", Make = "Mustang", Model="GT", Year=2017},
-            };
+                _log.Info("Get  all cars request reseived");
+                var cars = _provider.Load();
+                return cars;
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Error:", ex);
+                throw new Exception("Error", ex);
+            }
         }
 
         [EnableCors("SiteCorsPolicy")]
@@ -41,24 +46,9 @@ namespace CarsRepository.Controllers
                 lock (_lockObject)
                 {
                     var cars = _provider.Load().ToList();
-                    var removedCarsWithIndexes = cars.Select((car, index) => new { car, index }).Where(c => !CarInList(newCars, c.car)).ToArray();
-                    for (int i = removedCarsWithIndexes.Length - 1; i >= 0; i--)
-                    {
-                        cars.RemoveAt(removedCarsWithIndexes[i].index);
-                    }
-
-                    var changedCarsWithIndexes = newCars.Select((car, index) => new { car, index }).Where(c => CarInList(cars, c.car));
-                    foreach (var changedCarsWithIndex in changedCarsWithIndexes)
-                    {
-                        cars[changedCarsWithIndex.index] = changedCarsWithIndex.car;
-                    }
-
-                    var addedCars = newCars.Select((car, index) => new { car, index }).Where(c => !CarInList(cars, c.car));
-                    foreach (var addedCarIndex in addedCars)
-                    {
-                        cars.Add(addedCarIndex.car);
-                    }
-
+                    RemoveCars(newCars, cars);
+                    ChangeCars(newCars, cars);
+                    AddCars(newCars, cars);
                     _provider.Save(cars.ToArray());
                 }
 
@@ -68,6 +58,34 @@ namespace CarsRepository.Controllers
             {
                 _log.Error("Error:", ex);
                 throw new Exception("Error", ex);
+            }
+        }
+
+        private void AddCars(Car[] newCars, List<Car> cars)
+        {
+            var addedCars = newCars.Select((car, index) => new {car, index}).Where(c => !CarInList(cars, c.car));
+            foreach (var addedCarIndex in addedCars)
+            {
+                cars.Add(addedCarIndex.car);
+            }
+        }
+
+        private void ChangeCars(Car[] newCars, List<Car> cars)
+        {
+            var changedCarsWithIndexes = newCars.Select((car, index) => new {car, index}).Where(c => CarInList(cars, c.car));
+            foreach (var changedCarsWithIndex in changedCarsWithIndexes)
+            {
+                cars[changedCarsWithIndex.index] = changedCarsWithIndex.car;
+            }
+        }
+
+        private void RemoveCars(Car[] newCars, List<Car> cars)
+        {
+            var removedCarsWithIndexes =
+                cars.Select((car, index) => new {car, index}).Where(c => !CarInList(newCars, c.car)).ToArray();
+            for (int i = removedCarsWithIndexes.Length - 1; i >= 0; i--)
+            {
+                cars.RemoveAt(removedCarsWithIndexes[i].index);
             }
         }
 

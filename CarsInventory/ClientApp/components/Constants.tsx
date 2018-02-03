@@ -2,8 +2,3 @@
 // for more information see the following page on the TypeScript wiki:
 // https://github.com/Microsoft/TypeScript/wiki/JSX
 
-import { MyConfiguration} from "./Configuration";
-
-
-
-var c = new MyConfiguration("asd", "asd");
