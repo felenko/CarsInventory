@@ -269,7 +269,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
                 cars: newState.cars,
                 isShowingModal: false
             }
-            newState.isShowingModal = false;
+           
             this.setState(newState);
             this.postStateToServer(newState);
         }

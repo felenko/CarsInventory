@@ -1,0 +1,12 @@
+2018-02-04 00:15:13,615 [1] INFO  App  
+ Car Inventory Service starting.. 
+ 
+2018-02-04 00:15:33,259 [6] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-04 00:15:42,827 [6] INFO  App  
+ Update cars repository request reseived 
+ 
+2018-02-04 00:15:58,680 [7] INFO  App  
+ Get  all cars request reseived 
+ 
