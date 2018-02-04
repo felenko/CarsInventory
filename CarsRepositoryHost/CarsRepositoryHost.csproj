@@ -8,6 +8,9 @@
   <ItemGroup>
     <None Remove="appsettings.Development.json" />
     <None Remove="appsettings.json" />
+    <None Remove="CarRepositoryService2018-02-02.txt" />
+    <None Remove="CarRepositoryService2018-02-03.txt" />
+    <None Remove="CarRepositoryService2018-02-04.txt" />
   </ItemGroup>
 
   <ItemGroup>

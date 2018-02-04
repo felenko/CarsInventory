@@ -11,8 +11,6 @@ interface LooseObject {
     [key: string]: any
 }
 
-
-
 export class Edit extends React.Component<IEditProps,any> {
     constructor(props:any) {
         super(props);

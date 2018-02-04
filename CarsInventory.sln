@@ -3,13 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsInventory", "CarsInventory\CarsInventory.csproj", "{E4ADC8DA-C3B1-4766-ADBA-9710B46DA89D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsInventory", "CarsInventory\CarsInventory.csproj", "{E4ADC8DA-C3B1-4766-ADBA-9710B46DA89D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsRepository", "WebApplication1\CarsRepository.csproj", "{919A0E59-28D4-4AA2-A31F-48259E73062A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsRepository", "WebApplication1\CarsRepository.csproj", "{919A0E59-28D4-4AA2-A31F-48259E73062A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsRepositoryHost", "CarsRepositoryHost\CarsRepositoryHost.csproj", "{598B48CF-F188-4956-BB80-E7EECA0D4261}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsRepositoryHost", "CarsRepositoryHost\CarsRepositoryHost.csproj", "{598B48CF-F188-4956-BB80-E7EECA0D4261}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsRepository.Tests", "CarsRepository.Tests\CarsRepository.Tests.csproj", "{7B8A1899-2A18-4791-85A3-6A8804B735C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsRepository.Tests", "CarsRepository.Tests\CarsRepository.Tests.csproj", "{7B8A1899-2A18-4791-85A3-6A8804B735C4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoverLetter", "CoverLetter", "{E07E2A53-160D-4CDE-B4B2-C4BCECFE1951}"
+	ProjectSection(SolutionItems) = preProject
+		Cover letter.doc = Cover letter.doc
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

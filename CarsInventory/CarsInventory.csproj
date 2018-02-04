@@ -24,13 +24,7 @@
   <ItemGroup>
     <None Remove="ClientApp\components\Configuration.tsx" />
     <None Remove="ClientApp\components\Constants.tsx" />
-    <None Remove="ClientApp\components\MainGrid.tsx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\components\Configuration.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Constants.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\MainGrid.tsx" />
+    <None Remove="ClientApp\components\Counter.tsx" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

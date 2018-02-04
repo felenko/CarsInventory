@@ -124,20 +124,27 @@ namespace CarsRepository.Controllers
         [HttpDelete("{id}")]
         public void DeleteCar(int id)
         {
-            _log.Info("id car request reseived");
-
-            lock (_lockObject)
+            try
             {
-                var cars = _provider.Load().ToList();
-                var result = cars.Select((car, index) => new { car, index }).FirstOrDefault(c => c.car.Id == id);
-                if (result == null)
+                _log.Info("Delete car request reseived");
+                lock (_lockObject)
                 {
-                    throw new Exception("Entry with index does not exist in repository");
-                }
+                    var cars = _provider.Load().ToList();
+                    var result = cars.Select((car, index) => new {car, index}).FirstOrDefault(c => c.car.Id == id);
+                    if (result == null)
+                    {
+                        throw new Exception("Entry with index does not exist in repository");
+                    }
 
-                cars.RemoveAt(id);
-                _log.Info("Car entry updated.");
-                _provider.Save(cars.ToArray());
+                    cars.RemoveAt(id);
+                    _log.Info("Car entry updated.");
+                    _provider.Save(cars.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Error:", ex);
+                throw new Exception("Error", ex);
             }
         }
 

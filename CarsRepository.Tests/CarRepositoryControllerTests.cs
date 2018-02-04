@@ -1,9 +1,7 @@
 ﻿using System;
 using CarsRepository.Controllers;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using Xunit;
 using Assert = Xunit.Assert;
 
@@ -23,7 +21,6 @@ namespace CarsRepository.Tests
             new Car() {Manufacturer = "Dodge", Make = "Durango", Model = "SRT", Year = 2017, Id = 2},
             new Car() {Manufacturer = "Acura", Make = "Mdx", Model = "Comfort", Year = 2017, Id = 3},
         };
-
 
         public CarRepositoryControllerTests()
         {
@@ -48,16 +45,7 @@ namespace CarsRepository.Tests
             providerMock.Setup(c => c.Load()).Returns(_fakeCarslist);
             Assert.Throws<Exception>(() => carsRepositoryController.GetCar(fakeIndex));
         }
-
-
-        public void GetAllCars_CarsReturned()
-        {
-            providerMock.Setup(c => c.Load()).Returns(_fakeCarslist);
-            var cars = carsRepositoryController.GetAllCars();
-
-            CollectionAssert.Equals(_fakeCarslist, cars);
-        }
-
+        
         [Fact]
         public void UpdateAllCars_1NotChanged_1Deleted1_Updated_1Added_CarsUpdated()
         {
@@ -70,7 +58,7 @@ namespace CarsRepository.Tests
             };
             providerMock.Setup(p => p.Load()).Returns(_fakeCarslist);
             providerMock.Setup(p => p.Save(It.IsAny<Car[]>())).Callback<Car[]>(c => actual = c);
-           // carsRepositoryController.UpdateAllCars(updatedCars);
+            carsRepositoryController.UpdateAllCars(updatedCars);
 
             Assert.Equal(3, actual.Length);
             Assert.True(actual[0].EqualToCar(_fakeCarslist[0]));
@@ -108,18 +96,12 @@ namespace CarsRepository.Tests
             Assert.True(actual[2].EqualToCar(_fakeCarslist[2]));
             Assert.True(actual[3].EqualToCar(newCar));
         }
-
-    }
-
-    static class CarUtils
-    {
-        public static bool EqualToCar(this Car car1, Car car2)
+        public void GetAllCars_CarsReturned()
         {
-            return car1.Id == car2.Id
-                       && car1.Manufacturer == car2.Manufacturer
-                       && car1.Make == car2.Make
-                       && car1.Model == car2.Model
-                       && car1.Year == car2.Year;
-                   }
+            providerMock.Setup(c => c.Load()).Returns(_fakeCarslist);
+            var cars = carsRepositoryController.GetAllCars();
+
+            CollectionAssert.Equals(_fakeCarslist, cars);
+        }
     }
 }

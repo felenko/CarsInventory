@@ -4,24 +4,9 @@ import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {Edit} from "./edit";
 import 'isomorphic-fetch';
-
 import * as Modal from 'react-modal';
 
-//import * as webpack from 'webpack';
-
 const serverBaseUrl = "http://localhost:5000/";
-
-
-function onAfterDeleteRow(rowKeys:any) {
-    alert('The rowkey you drop: ' + rowKeys);
-}
-
-const options = {
-    afterDeleteRow: onAfterDeleteRow  // A hook for after droping rows.
-     
-};
-
-// If you want to enable deleteRow, you must enable row selection also.
 
 interface MyComponentState { activities : any[]}
 
@@ -31,49 +16,7 @@ interface CarsInventoryState {
 }
 
 interface ICar {
-    
 }
-
-export class MainGrid extends React.Component<{}, MyComponentState> {
-    constructor() {
-        super();
-        this.state = {
-            activities: [{id: 0, title: 'test', address: 'asdfasdf'},
-                {id: 1, title: 'test1', address: 'asdfasdf'},
-                {id: 2, title: 'test2', address: 'asdfasdf'}]
-        }
-    }
-    
-    _validateFunction(row:any) {    
-        console.log("activity id :"+ row.id);
-    }
-    
-    buttonFunction(cell:any, row:any) {
-        return <label>
-                   <button type="button"
-                           id="validatebutton"
-                           onClick={() => { this._validateFunction(row) }}
-                           className="bbtn btn-primary btn-sm">
-                       Click Me
-                   </button>
-               </label>;
-    }
-    
-    render() {
-        return (
-            
-            <BootstrapTable data={this.state.activities} pagination={true} hover={true} search={true}>
-                <TableHeaderColumn isKey={true} dataField="id" hidden>ID</TableHeaderColumn>
-                <TableHeaderColumn dataField="title" dataSort={true}>Title</TableHeaderColumn>
-                <TableHeaderColumn dataField="address" dataSort={true}>Adress</TableHeaderColumn>
-                <TableHeaderColumn dataField="button" dataFormat={this.buttonFunction.bind(this)}></TableHeaderColumn>
-            </BootstrapTable>
-        );
-    }
-}
-
-
-const MainGrid1 = () => (<MainGrid></MainGrid>);
 
 export class Home extends React.Component<RouteComponentProps<{}>, CarsInventoryState> {
     constructor() {
@@ -89,56 +32,40 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
         this.state = {
             cars: [
                 { Id: 1, Manufacturer: "Ford", Make: "Ford", Model: "GT", Year: 2015 },
-                { Id: 2, Manufacturer: "Chevy", Make: "Chevy", Model: "GT", Year: 2015 },
-                { Id: 3, Manufacturer: "Chevy", Make: "Chevy", Model: "GT", Year: 2015 }
+                { Id: 2, Manufacturer: "Chevy", Make: "Camaro", Model: "RT", Year: 2016 },
+                { Id: 3, Manufacturer: "Dodge", Make: "Charger", Model: "SRT", Year: 2017 }
             ],
             isShowingModal: false
         }
+    }
+
+    loadDataFromServer() {
         fetch(serverBaseUrl + 'api/CarRepository/GetAllCars')
             .then(response => response.json() as Promise<ICar[]>)
             .then(data => {
                 console.log("inital receied data");
                 console.log(data);
                 this.setState({ cars: data, isShowingModal: false });
-            });
+            }).catch(() => { alert("Error connecting to server. Data not loaded! Displayed entries is FAKE default data.");  });
     }
-
 
     clone<T>(o: T): T {
         return JSON.parse(JSON.stringify(o));
     }
-
 
     deleteBtnClick(row: any) {
         console.log("delete clicked");
         console.log(row.id);
         console.log(row);
         console.log("state cars count" + this.state.cars.length);
-
-
+        let confirmed = confirm("Are you sure you want to delete this entry?");
+        if (!confirmed) return;
         var index = this.state.cars.indexOf(row);
         console.log("index" + index);
         var newState = this.clone(this.state);
         newState.cars.splice(index, 1);
         this.setState(newState);
         this.postStateToServer(newState);
-
-    }
-
-    IsOpen: boolean;
-
-    buttonsColumnFormat(cell: any, row: any) {
-
-        return <span><button className="btn btn-default" type="submit" onClick={() => {this.editBtnClick(row);}}>
-                       <span className="glyphicon glyphicon-pencil"></span>Edit
-                   </button>
-                   <button className="btn btn-warning react-bs-table-del-btn" 
-                           type="submit"
-                           onClick={() => {this.deleteBtnClick(row);}}>
-                           <span><i className="fa glyphicon glyphicon-trash fa-trash"></i>Delete</span>
-                   </button>
-               </span>;
-
     }
 
     onAddRowHandler(row: any) {
@@ -156,29 +83,33 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
         newState.cars.push(car);
         this.setState(newState);
         this.postStateToServer(newState);
-
     }
 
-
-    handleClick = () => this.setState({ cars: [], isShowingModal: true });
-    handleClose = () => this.setState({ cars: [], isShowingModal: false });
+     buttonsColumnFormat(cell: any, row: any) {
+        return <span><button className="btn btn-default" type="submit" onClick={() => {this.editBtnClick(row);}}>
+                       <span className="glyphicon glyphicon-pencil"></span>Edit
+                   </button>
+                   <button className="btn btn-warning react-bs-table-del-btn" 
+                           type="submit"
+                           onClick={() => {this.deleteBtnClick(row);}}>
+                           <span><i className="fa glyphicon glyphicon-trash fa-trash"></i>Delete</span>
+                   </button>
+               </span>;
+    }
 
     public render() {
         const options = {
-            afterInsertRow: this.onAddRowHandler
-
+            afterInsertRow:this.onAddRowHandler
         };
-
 
         const style = {
             content: {
                 borderRadius: '4px',
                 bottom: 'auto',
-                height: '50%',  // set height
+                height: '50%',  
                 padding: '2rem',
                 left: '40%',
                 top: '10%', // start from center
-                //transform: 'translate(-50%,-' + offsetPx + ')', // adjust top "up" based on height
                 width: '40%',
                 maxWidth: '40rem'
             }
@@ -195,7 +126,6 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
                        <TableHeaderColumn dataField='Model' dataSort={ true } width='20%'>Model</TableHeaderColumn>
                        <TableHeaderColumn dataField='Year' dataSort={ true } width='10%'>Year</TableHeaderColumn>
                        <TableHeaderColumn width='15%' dataFormat={ this.buttonsColumnFormat.bind(this)}></TableHeaderColumn>
-
                    </BootstrapTable>
 
                    <Modal
@@ -213,11 +143,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
 
     componentDidUpdate(prevProps: any, prevState: any) {
         console.log("updated");
-
-        
-        
     }
-
 
     postStateToServer(state:CarsInventoryState) {
         console.log(JSON.stringify(this.state.cars));
@@ -233,8 +159,10 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
             .then(response => response.json() as Promise<boolean>)
             .then(data => {
                 console.log("successfull post");
-            });
+            }).catch(() => { alert("Error connecting to server. Your changes might be lost!");  });
     }
+
+    editedCar: any;
 
     editCancelHandler() {
        this.setState({
@@ -261,19 +189,16 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
         console.log(editedCar);
         var index = -1;
         this.state.cars.filter((item, i) => { if (item.Id == editedCar.Id) index = i });
-        if (index >= 0) {
-            var newState = this.clone(this.state);
-            newState.cars[index] = editedCar;
-            newState = 
-            {
-                cars: newState.cars,
-                isShowingModal: false
-            }
-           
-            this.setState(newState);
-            this.postStateToServer(newState);
+        if (index < 0) return;
+        var newState = this.clone(this.state);
+        newState.cars[index] = editedCar;
+        newState = 
+        {
+            cars: newState.cars,
+            isShowingModal: false
         }
-    }
-
-    editedCar: any;
+           
+        this.setState(newState);
+        this.postStateToServer(newState);
+    }    
 }
