@@ -63,4 +63,8 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+    .glyphicon-floppy-save {
+        margin-right: .2em;
+    }
 }
