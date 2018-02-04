@@ -10,3 +10,6 @@
 2018-02-04 00:15:58,680 [7] INFO  App  
  Get  all cars request reseived 
  
+2018-02-04 14:13:59,490 [1] INFO  App  
+ Car Inventory Service starting.. 
+ 

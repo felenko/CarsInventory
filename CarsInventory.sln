@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsInventory", "CarsInventory\CarsInventory.csproj", "{E4ADC8DA-C3B1-4766-ADBA-9710B46DA89D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsRepository", "WebApplication1\CarsRepository.csproj", "{919A0E59-28D4-4AA2-A31F-48259E73062A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsRepository", "CarsRepository\CarsRepository.csproj", "{919A0E59-28D4-4AA2-A31F-48259E73062A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsRepositoryHost", "CarsRepositoryHost\CarsRepositoryHost.csproj", "{598B48CF-F188-4956-BB80-E7EECA0D4261}"
 EndProject

@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebApplication1\CarsRepository.csproj" />
+    <ProjectReference Include="..\CarsRepository\CarsRepository.csproj" />
   </ItemGroup>
 
   <ItemGroup>
