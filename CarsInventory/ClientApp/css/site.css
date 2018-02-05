@@ -67,4 +67,11 @@
     .glyphicon-floppy-save {
         margin-right: .2em;
     }
+
+    .btn.btn-default {
+        margin-left: 5px;
+    }
+    .btn.react-bs-table-del-btn {
+        margin-left: 5px;
+    }
 }

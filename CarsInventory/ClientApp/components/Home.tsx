@@ -106,11 +106,11 @@ export class Home extends React.Component<RouteComponentProps<{}>, CarsInventory
             content: {
                 borderRadius: '4px',
                 bottom: 'auto',
-                height: '50%',  
+                height: '58%',  
                 padding: '2rem',
                 left: '40%',
                 top: '10%', // start from center
-                width: '40%',
+                width: '50%',
                 maxWidth: '40rem'
             }
         };

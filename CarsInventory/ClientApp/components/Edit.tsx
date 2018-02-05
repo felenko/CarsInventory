@@ -42,40 +42,39 @@ export class Edit extends React.Component<IEditProps,any> {
     render() {
         return (
             <form>
-                <label>
-                    Edit car<br/>
-                    Manufacturer<br/>
-                    <input
+                <div className="modal-header react-bs-table-inser-modal-header">
+                    <h4 className="modal-title">Edit car</h4>
+                    </div>
+                <br/>
+                    <label>Manufacturer</label>
+                    <input placeholder="Manufacturer" className="form-control editor edit-text"
                         name="Manufacturer"
                         type="text"
                         value={this.state.car.Manufacturer}
                         onChange={this.handleInputChange} />
-                </label>
-                <br />
-                <label>
-                    Make<br/>
-                    <input
+                
+               
+                
+                    <label>Make</label>
+                   <input placeholder="Make" className="form-control editor edit-text"
                         name="Make"
                         type="text"
                         value={this.state.car.Make}
                         onChange={this.handleInputChange} />
-                </label>
-                <label>
-                    Model<br/>
-                    <input
+                
+                   <label>Model</label>
+                    <input placeholder="Model" className="form-control editor edit-text"
                         name="Model"
                         type="text"
                         value={this.state.car.Model}
                         onChange={this.handleInputChange} />
-                </label>
-                <label>
-                    Year<br/>
-                    <input
+                    <label>Year</label>
+                    <input placeholder="Year" className="form-control editor edit-text"
                         name="Year"
                         type="text"
                         value={this.state.car.Year}
                         onChange={this.handleInputChange} />
-                </label>
+               
                 <br/>
                 <br/>
                 <button className="btn btn-default" type="button" onClick={()=> { this.props.onCancel(); }}>
